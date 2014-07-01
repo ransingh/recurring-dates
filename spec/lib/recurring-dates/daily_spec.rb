@@ -7,14 +7,14 @@ describe Recurring::Daily do
 
   describe  ".from_today" do
     subject { Recurring::Daily.from_today }
-    it "should return an daily date with starting date set for today" do
+    it "does return a daily date with starting date set for today" do
       subject.start_date == DateTime.now
     end
   end
 
   describe ".from_tomorrow" do
     subject { Recurring::Daily.from_today }
-    it "should return an daily date with starting date set for tomorrow" do
+    it "does return a daily date with starting date set for tomorrow" do
       subject.start_date == DateTime.now.next_day
     end
   end
@@ -54,7 +54,7 @@ describe Recurring::Daily do
     context  "starting from tomorrow" do
       subject { Recurring::Daily.from_tomorrow }
 
-      it "should return all recurring dates on daily basis from tomorrow until end date" do
+      it "does return all recurring dates on daily basis from tomorrow until end date" do
         dates = subject.until(DateTime.now + 10.days)
 
         expect(dates).not_to include(DateTime.now)
@@ -65,7 +65,7 @@ describe Recurring::Daily do
       end
 
       context "when a block is provided" do
-        it "should yield to the block with all recurring dates on daily basis from tomorrow until end date" do
+        it "does yield to the block with all recurring dates on daily basis from tomorrow until end date" do
           expect { |b|
             subject.until(DateTime.now + 10.days, &b)
           }.to yield_successive_args(get_dates(DateTime.now+1.days,10))
@@ -78,7 +78,7 @@ describe Recurring::Daily do
     context  "starting from today" do
       subject { Recurring::Daily.from_today }
 
-      it "should return as many recurring dates on daily basis from today as repetition frequency" do
+      it "does return as many recurring dates on daily basis from today as repetition frequency" do
         0.upto(9).each do |i|
           expect(subject.repeat_for(10)).to include(DateTime.now + i.days)
         end
@@ -86,7 +86,7 @@ describe Recurring::Daily do
       end
 
       context "when a block is provided" do
-        it "should return as many recurring dates on daily basis from today as repetition frequency" do
+        it "does return as many recurring dates on daily basis from today as repetition frequency" do
           expect{|b|
             subject.repeat_for(2, &b)
           }.to yield_successive_args(get_dates(DateTime.now, 2))
@@ -97,7 +97,7 @@ describe Recurring::Daily do
     context  "starting from tomorrow" do
       subject { Recurring::Daily.from_tomorrow }
 
-      it "should return as many recurring dates on daily basis from tomorrow as repetition frequency" do
+      it "does return as many recurring dates on daily basis from tomorrow as repetition frequency" do
         0.upto(9).each do |i|
           expect(subject.repeat_for(10)).to include(DateTime.now.next + i.days)
         end
@@ -105,7 +105,7 @@ describe Recurring::Daily do
       end
 
       context "when a block is provided" do
-        it "should return as many recurring dates on daily basis from tomorrow as repetition frequency" do
+        it "does return as many recurring dates on daily basis from tomorrow as repetition frequency" do
           expect{|b|
             subject.repeat_for(2, &b)
           }.to yield_successive_args(get_dates(DateTime.now.next, 2))
